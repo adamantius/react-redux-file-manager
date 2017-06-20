@@ -1,0 +1,158 @@
+$font-family-serif: Garamond, "Times New Roman", serif;
+$font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$grey-border: #eee;
+$grey-text: #aaa;
+$black: #000;
+$white: #fff;
+
+html {
+  font-size: 10px;
+
+  @include lg {
+    font-size: 12px;
+  }
+
+  @include xl {
+    font-size: 14px;
+  }
+}
+
+body {
+  color: $black;
+  font-family: $font-family-sans-serif;
+}
+
+.App {
+  font-size: 1.8rem;
+  padding: 2rem;
+
+  @include md {
+    padding: 3rem;
+  }
+
+  @include md {
+    padding: 4rem;
+  }
+}
+
+a {
+  color: $grey-text;
+}
+
+a:hover {
+  color: $black;
+}
+
+.wobble-fix { -webkit-filter: blur(0); }
+
+.FileManager {
+  height:100vh;
+  .FileManager-header {
+    height:5vh;
+  }
+}
+.filelists-container {
+  display: flex;
+  height: 95vh;
+
+  .filelist-panel {
+    flex: 1;
+    flex-direction: column;
+    border: 1px solid #eee;
+    margin: 5px;
+    display: flex;
+    .panel-actions {
+      height: 40px;
+      background-color: #aaaaaa;
+      padding: 10px;
+      line-height: 20px;
+      .panel-button {
+        display: inline-block;
+        float:right;
+        cursor:pointer;
+        font-size: 18px;
+        margin: 0 0 0 5px;
+        color: #fff;
+        //border:1px solid #eee;
+        height: 20px;
+        width: 20px;
+        text-align: center;
+        &.disabled {
+          color: #ccc;
+          cursor: auto;
+        }
+      }
+      .panel-caption {
+        max-width: 70%;
+        overflow: hidden;
+        height: 20px;
+        display: inline-block;
+      }
+    }
+    .filelist {
+      overflow:hidden;
+      overflow-y:auto;
+      position:relative;
+      flex: 1;
+      ul {
+        margin:0;
+        padding:0;
+        .file-item {
+          height: 25px;
+          padding: 0 5px 0 5px;
+          line-height: 25px;
+          border-bottom: 1px solid #eee;
+          cursor: pointer;
+          i {
+              font-size: 14px;
+          }
+        }
+        .file-item:hover {
+          background-color: #eee;
+        }
+        .file-item.active {
+          background-color: #eee;
+        }
+        .indicator {
+          float: right;
+          line-height: 25px;
+          margin-right: 5px;
+          color:#ccc;
+        }
+      }
+      .loading {
+        position: absolute;
+        top:0;
+        bottom: 0;
+        left:0;
+        right:0;
+        text-align: center;
+        .message {
+          height: 40px;
+          padding-top: 45vh;
+          margin-top: -20px;
+          .sr-only {
+            margin-top: 10px;
+            display: inline-block;
+          }
+        }
+      }
+      .uploader {
+        position: relative;
+        padding: 10px;
+        .drop-zone {
+          border: 2px dashed #ccc;
+          border-radius: 4px;
+          text-align: center;
+          padding: 20px;
+          color: #ccc;
+          &.active {
+            color: #717171;
+            border: 2px dashed #717171;
+          }
+        }
+      }
+    }
+  }
+}
