@@ -16,7 +16,7 @@ export default class FileManager extends PureComponent {
       const {baseRoot, activePanel, files, startPanelsIndex } = this.props;
       return (
           <div className="FileManager">
-            <div className="FileManager-header">NHL File Manager <b>{ baseRoot }</b></div>
+            <div className="FileManager-header">File Manager <b>{ baseRoot }</b></div>
               <div className="filelists-container">
                   {[...Array(3)].map((x, i) =>
                     <FileList
