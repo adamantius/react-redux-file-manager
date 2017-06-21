@@ -80,7 +80,7 @@ function createFolderError(error, panelIndex) {
 
 export function removeFile(panelIndex, path) {
   return {
-    type: CREATE_FOLDER,
+    type: REMOVE_FILE,
     panelIndex: panelIndex,
     path: path
   };
@@ -88,7 +88,7 @@ export function removeFile(panelIndex, path) {
 
 function removeFileError(error, panelIndex) {
   return {
-    type: CREATE_FOLDER_ERROR,
+    type: REMOVE_FILE_ERROR,
     error,
     panelIndex
   };
@@ -96,6 +96,7 @@ function removeFileError(error, panelIndex) {
 
 
 export function recieveFilesList(path, panelIndex) {
+  path = path.replace(/^\/+/,'');
   return function (dispatch) {
     dispatch(requestFilesList(panelIndex));
     fetch(API_URL + path)
@@ -139,13 +140,19 @@ export function createFolderRequest(path, panelIndex) {
   };
 }
 
-export function removeFileRequest(path, panelIndex) {
+export function removeFilesRequest(files, panelIndex) {
   return function (dispatch) {
-    dispatch(removeFile(panelIndex, path));
+   
     dispatch(requestFilesList(panelIndex));
-    fetch(API_URL + path, {
-      method: 'POST',
-      body: JSON.stringify({action: 'delete'})
+    
+    Promise.all(files.map((item)=> {
+      dispatch(removeFile(panelIndex, item.path));
+      return fetch(API_URL + item.path, {
+        method: 'POST',
+        body: JSON.stringify({action: 'delete'})
+      });
+    })).then(values => {
+      return values[values.length-1];
     })
     .then(response => response.json())
     .then(

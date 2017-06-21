@@ -7,11 +7,12 @@ export function moveToTopLevel() {
   }
 }
 
-export function selectPanelFile(selectedFile, panelIndex) {
+export function selectPanelFile(selectedFile, panelIndex, strategy) {
   return {
     type: SELECT_PANEL_FILE,
     selectedFile: selectedFile,
-    panelIndex: panelIndex
+    panelIndex: panelIndex,
+    strategy: strategy
   }
 }
 

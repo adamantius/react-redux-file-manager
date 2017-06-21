@@ -41,7 +41,26 @@ export default function app(state = initialState, action) {
   
     case SELECT_PANEL_FILE :
       let selectedPanelFile = Object.assign([], state.selectedPanelFile);
-      selectedPanelFile[action.panelIndex] = action.selectedFile;
+      console.log(action.strategy);
+      if (action.strategy === 'single') {
+        selectedPanelFile[action.panelIndex] = [action.selectedFile];
+      } else {
+        let isElementExist = false;
+        let selection = [];
+        selectedPanelFile[action.panelIndex].reduce((accumulator, item) => {
+            if (action.selectedFile !== item) {
+              accumulator.push(item);
+            } else {
+              isElementExist = true;
+            }
+            return accumulator;
+        }, selection);
+        if (!isElementExist) {
+          selection.push(action.selectedFile)
+        }
+        
+        selectedPanelFile[action.panelIndex] = selection;
+      }
       return Object.assign({}, state, {
         selectedPanelFile: selectedPanelFile,
         activePanel: action.panelIndex

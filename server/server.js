@@ -3,10 +3,12 @@
 const Hapi = require('hapi');
 const FS = require('fs');
 const PATH = require('path');
+const Busboy = require('busboy');
 const constants = {
     DIRECTORY: 'directory',
     FILE: 'file'
 }
+
 
 
 function safeReadDirSync (path) {
@@ -145,6 +147,27 @@ server.route([{
     handler: function (request, reply) {
         return reply('ok');
     }
+}, {
+    method: 'POST',
+    path:'/upload/{path*}',
+    config: {
+        payload: {
+            output: 'stream',
+            allow: 'multipart/form-data' // important
+        }
+    },
+    handler: async function (request, reply) {
+        try {
+            const data = request.payload;
+            const files = data['datafile'];
+            
+            const filesDetails = await uploader(files, {dest: request.params.path + '/'});
+            console.log(filesDetails);
+            reply(filesDetails);
+        } catch (err) {
+            reply(Boom.badRequest(err.message, err));
+        }
+    }
 }]);
 
 server.register({
@@ -167,3 +190,38 @@ server.start((err) => {
     }
     console.log('Server running at:', server.info.uri);
 });
+
+const uploader = function (file, options) {
+    if (!file) throw new Error('no file(s)');
+    
+    return _fileHandler(file, options);
+}
+
+const _fileHandler = function (file, options) {
+    if (!file) throw new Error('no file');
+    
+    const orignalname = file.hapi.filename;
+    const path = `${options.dest}${orignalname}`;
+    const fileStream = FS.createWriteStream(path);
+    
+    return new Promise((resolve, reject) => {
+        file.on('error', function (err) {
+            reject(err);
+        });
+        
+        file.pipe(fileStream);
+        
+        file.on('end', function (err) {
+            const fileDetails = {
+                fieldname: file.hapi.name,
+                originalname: file.hapi.filename,
+                mimetype: file.hapi.headers['content-type'],
+                destination: `${options.dest}`,
+                path,
+                size: FS.statSync(path).size,
+            }
+            
+            resolve(fileDetails);
+        })
+    })
+}

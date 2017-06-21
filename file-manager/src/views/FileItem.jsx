@@ -6,18 +6,29 @@ import { moveToTopLevel, selectPanelFile } from '../actions/app';
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     
-    onItemClick: () => {
-      if (ownProps.fileData.type === 'directory') {
-        dispatch(selectPanelFile(ownProps.fileData, ownProps.panelIndex));
-        dispatch(recieveFilesList(ownProps.fileData.path, ownProps.panelIndex+1));
-        return;
-      }
+    onItemClick: (e) => {
+      console.log(e.ctrlKey);
+      console.log(e.altKey);
+      console.log(e.shiftKey);
+      console.log(e.metaKey);
+  
+      let selectionStrategy = 'single';
+      
       if (ownProps.fileData.type === 'toTop') {
         dispatch(moveToTopLevel());
         return;
       }
-      dispatch(selectPanelFile(ownProps.fileData, ownProps.panelIndex));
+  
+      if (e.ctrlKey || e.metaKey) {
+        selectionStrategy = 'multi';
+      }
       
+      dispatch(selectPanelFile(ownProps.fileData, ownProps.panelIndex, selectionStrategy));
+      
+      if (ownProps.fileData.type === 'directory') {
+        dispatch(recieveFilesList(ownProps.fileData.path, ownProps.panelIndex+1));
+        return;
+      }
     },
     
     onFileNameChanged: (panelIndex, fileData, fileName) => {
@@ -29,8 +40,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  
+  let selection = state.app.selectedPanelFile[ownProps.panelIndex];
+  
+  let filtered = selection ? selection.filter((item) => {
+    return item == ownProps.fileData;
+  }) : [];
+  
   return {
-    active: ownProps.fileData === state.app.selectedPanelFile[ownProps.panelIndex]
+    active: !!filtered.length
   }
 };
 

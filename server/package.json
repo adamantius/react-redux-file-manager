@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "busboy": "^0.2.14",
     "directory-tree": "^2.0.0",
     "hapi": "^16.4.3",
     "hapi-cors": "^1.0.1"
