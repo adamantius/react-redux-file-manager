@@ -14,7 +14,6 @@ const jsSourcePath = path.join(__dirname, './src');
 const buildPath = path.join(__dirname, './build');
 const imgPath = path.join(__dirname, './assets/img');
 const iconPath = path.join(__dirname, './assets/icons');
-const sourcePath = path.join(__dirname, './source');
 const stylesPath = path.join(__dirname, './styles');
 
 
@@ -36,7 +35,7 @@ const plugins = [
   }),
   new webpack.NamedModulesPlugin(),
   new HtmlWebpackPlugin({
-    template: path.join(sourcePath, 'index.html'),
+    template: path.join(jsSourcePath, 'index.html'),
     path: buildPath,
     filename: 'index.html',
   }),
@@ -172,7 +171,7 @@ module.exports = {
   },
   plugins,
   devServer: {
-    contentBase: isProduction ? buildPath : sourcePath,
+    contentBase: isProduction ? buildPath : jsSourcePath,
     historyApiFallback: true,
     port: 3000,
     compress: isProduction,
