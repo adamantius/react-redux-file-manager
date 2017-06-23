@@ -63,20 +63,20 @@ const rules = [
       'babel-loader',
     ],
   },
-  {
-    test: /\.svg$/,
-    use: [
-      {
-        loader: 'svg-sprite-loader',
-        options: {
-          extract: true,
-          spriteFilename: 'icons-sprite.svg',
-        },
-      },
-      'svgo-loader',
-    ],
-    include: iconPath,
-  },
+  // {
+  //   test: /\.svg$/,
+  //   use: [
+  //     {
+  //       loader: 'svg-sprite-loader',
+  //       options: {
+  //         extract: true,
+  //         spriteFilename: 'icons-sprite.svg',
+  //       },
+  //     },
+  //     'svgo-loader',
+  //   ],
+  //   include: iconPath,
+  // },
   {
     test: /\.(png|gif|jpg|svg)$/,
     include: imgPath,
