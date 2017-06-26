@@ -22,7 +22,7 @@ const plugins = [
   new SpritePlugin(),
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
-    filename: 'vendor-[hash].js',
+    filename: 'vendor.js',
     minChunks(module) {
       const context = module.context;
       return context && context.indexOf('node_modules') >= 0;
@@ -80,7 +80,7 @@ const rules = [
   {
     test: /\.(png|gif|jpg|svg)$/,
     include: imgPath,
-    use: 'url-loader?limit=20480&name=assets/[name]-[hash].[ext]',
+    use: 'url-loader?limit=20480&name=assets/[name].[ext]',
   },
   {
       test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
@@ -108,7 +108,7 @@ if (isProduction) {
         comments: false,
       },
     }),
-    new ExtractTextPlugin('style-[hash].css')
+    new ExtractTextPlugin('style.css')
   );
 
   // Production rules
@@ -157,7 +157,7 @@ module.exports = {
   output: {
     path: buildPath,
     publicPath: '/',
-    filename: 'app-[hash].js',
+    filename: 'app.js',
   },
   module: {
     rules,
