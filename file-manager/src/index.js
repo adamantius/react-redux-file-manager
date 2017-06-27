@@ -10,10 +10,11 @@ import rootReducer from 'reducers';
 
 import App from 'views/App';
 
-import {INITIAL_DIR} from "./config";
+import {INITIAL_DIRS} from "./config";
 
 // Load SCSS
 import '../styles/app.scss';
+import css from 'react-select/dist/react-select.css';
 
 import { changeBaseRoot, changePanelRoot } from './actions/app';
 import { requestFilesList, recieveFilesList } from './actions/files';
@@ -52,7 +53,10 @@ if (isProduction) {
     enhancer
   );
 }
-store.dispatch(recieveFilesList(INITIAL_DIR, 0));
+
+
+
+store.dispatch(recieveFilesList(INITIAL_DIRS[0].value, 0));
 // Stop listening to state updates
 //unsubscribe()
 
@@ -60,7 +64,7 @@ store.dispatch(recieveFilesList(INITIAL_DIR, 0));
 // Render it to DOM
 ReactDOM.render(
   <Provider store={ store }>
-    <App baseRoot={ INITIAL_DIR }/>
+    <App baseRoots={ INITIAL_DIRS }/>
   </Provider>,
   document.getElementById('root')
 );

@@ -7,11 +7,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     
     onItemClick: (e) => {
-      console.log(e.ctrlKey);
-      console.log(e.altKey);
-      console.log(e.shiftKey);
-      console.log(e.metaKey);
-  
+      
       let selectionStrategy = 'single';
       
       if (ownProps.fileData.type === 'toTop') {

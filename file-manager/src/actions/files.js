@@ -19,7 +19,6 @@ export const REMOVE_FILE_ERROR = 'REMOVE_FILE_ERROR';
 
 
 
-
 export function requestFilesList(panelIndex) {
   return {
     type: REQUEST_FILES_LIST,

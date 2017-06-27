@@ -32,6 +32,8 @@ export default function app(state = initialState, action) {
       
       if (action.panelIndex === state.startPanelsIndex + 3) {
         startPanelsIndex = state.startPanelsIndex + 1;
+      }else if (action.panelIndex === 0) {
+        startPanelsIndex = 0;
       } else {
         startPanelsIndex = state.startPanelsIndex;
       }

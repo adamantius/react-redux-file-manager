@@ -114,6 +114,10 @@ if (isProduction) {
   // Production rules
   rules.push(
     {
+      test: /\.css$/,
+      use: [ 'style-loader', 'css-loader' ]
+    },
+    {
       test: /\.scss$/,
       loader: ExtractTextPlugin.extract({
         fallback: 'style-loader',
@@ -130,6 +134,10 @@ if (isProduction) {
 
   // Development rules
   rules.push(
+    {
+      test: /\.css$/,
+      use: [ 'style-loader', 'css-loader' ]
+    },
     {
       test: /\.scss$/,
       exclude: /node_modules/,

@@ -1,0 +1,74 @@
+/** @class Shadow_CSS */
+
+
+$link-shadow-components-1: (
+    ambient:    0 0 8px rgba(0,0,0,0.20),
+    direct:     0 0 1px rgba(0,0,0,0.25)
+);
+
+$link-shadow-components-2: (
+    ambient:    0 0 12px rgba(0,0,0,0.20),
+    direct:     0 0 3px rgba(0,0,0,0.25)
+);
+
+$link-shadow-components-3: (
+    ambient:    0 0 24px rgba(0,0,0,0.20),
+    direct:     0 0 9px rgba(0,0,0,0.25)
+);
+
+$link-shadow-components-depths: (
+        "1" : $link-shadow-components-1,
+        "2" : $link-shadow-components-2,
+        "3" : $link-shadow-components-3
+);
+
+
+
+$link-dark-shadow-components-1: (
+    ambient:    0 0 8px rgba(0,0,0,0.35),
+    direct:     0 0 1px rgba(0,0,0,0.40)
+);
+
+$link-dark-shadow-components-2: (
+    ambient:    0 0 12px rgba(0,0,0,0.35),
+    direct:     0 0 3px rgba(0,0,0,0.40)
+);
+
+$link-dark-shadow-components-3: (
+    ambient:    0 0 24px rgba(0,0,0,0.35),
+    direct:     0 0 6px rgba(0,0,0,0.40)
+);
+
+$link-dark-shadow-components-depths: (
+        "1" : $link-dark-shadow-components-1,
+        "2" : $link-dark-shadow-components-2,
+        "3" : $link-dark-shadow-components-3
+);
+
+
+
+/**
+
+*/
+@function link-shadow($depth: 1, $extra-shadow: null, $dark: false) {
+  $depth: $depth + unquote("");
+
+    $components: null;
+    @if $dark {
+        $components: map-get($link-dark-shadow-components-depths, $depth);
+    } @else {
+        $components: map-get($link-shadow-components-depths, $depth);
+    }
+
+
+    $shadows: (
+        map-get($components, ambient),
+        map-get($components, direct)
+    );
+  
+  @if $extra-shadow {
+    $shadows: append($shadows, $extra-shadow);
+  }
+  
+  @return $shadows;
+}

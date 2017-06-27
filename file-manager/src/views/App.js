@@ -7,12 +7,12 @@ import FileManager from './FileManager';
 export default class App extends Component {
   
   static propTypes = {
-    baseRoot: PropTypes.string,
+    baseRoots: PropTypes.array
   };
   
   render() {
     return (
-        <FileManager baseRoot={ this.props.baseRoot }/>
+        <FileManager baseRoots={ this.props.baseRoots }/>
     );
   }
 }

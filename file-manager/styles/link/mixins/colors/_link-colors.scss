@@ -1,0 +1,15 @@
+@import "_link-colors-map";
+
+@function link-color($color-name, $color-variant: 500) {
+    $colorGroup: map-get($link-colors, $color-name);
+    @if $colorGroup {
+        $color: map-get($colorGroup, $color-variant + unquote(""));
+        @if $color {
+            @return $color;
+        } @else {
+            @warn "link-color() ERROR: Color variant not found for " + $color-name + ": " + $color-variant;
+        }
+    } @else {
+        @warn "link-color() ERROR: Color group not found: " + $color-name;
+    }
+}

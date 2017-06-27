@@ -1,0 +1,153 @@
+/** @class Typography_CSS */
+
+@mixin link-typo-display-4($colorContrast: false) {
+    font-size: 112px;
+    font-weight: 300;
+    line-height: 1;
+    //letter-spacing: -0.04em;
+    @if $colorContrast {
+        opacity: 0.54;
+    }
+}
+
+@mixin link-typo-display-3($colorContrast: false) {
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 56px;
+    //letter-spacing: -0.02em;
+    @if $colorContrast {
+        opacity: 0.54;
+    }
+}
+
+@mixin link-typo-display-2($colorContrast: false) {
+    font-size: 45px;
+    font-weight: 400;
+    line-height: 45px;
+    @if $colorContrast {
+        opacity: 0.54;
+    }
+}
+
+@mixin link-typo-display-1($colorContrast: false) {
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 34px;
+    @if $colorContrast {
+        opacity: 0.54;
+    }
+}
+
+@mixin link-typo-headline($colorContrast: false) {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 24px;
+    @if $colorContrast {
+        opacity: 0.87;
+    }
+}
+
+@mixin link-typo-title($colorContrast: false) {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 20px;
+    //letter-spacing: 0.02em;
+    @if $colorContrast {
+        opacity: 0.87;
+    }
+}
+
+@mixin link-typo-subhead($colorContrast: false) {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    //letter-spacing: 0.02em;
+    @if $colorContrast {
+        opacity: 0.87;
+    }
+}
+
+@mixin link-typo-subhead-2($colorContrast: false) {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 18px;
+    //letter-spacing: 0.02em;
+    @if $colorContrast {
+        opacity: 0.87;
+    }
+}
+
+
+@mixin link-typo-body-2($colorContrast: false, $usePreferred: false) {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+    //letter-spacing: 0;
+    @if $colorContrast {
+        opacity: 0.87;
+    }
+}
+
+@mixin link-typo-body-1($colorContrast: false, $usePreferred: false) {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 14px;
+    //letter-spacing: 0;
+    @if $colorContrast {
+        opacity: 0.87;
+    }
+}
+
+@mixin link-typo-caption($colorContrast: false, $usePreferred: false) {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 12px;
+    //letter-spacing: 0;
+    @if $colorContrast {
+        opacity: 0.54;
+    }
+}
+
+@mixin link-typo-blockquote($colorContrast: false) {
+    position: relative;
+    font-size: 24px;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.35;
+    //letter-spacing: 0.08em;
+
+    &:before {
+        position: absolute;
+        left: -0.5em;
+        content: '“';
+    }
+
+    &:after {
+        content: '”';
+        margin-left: -0.05em;
+    }
+    @if $colorContrast {
+        opacity: 0.54;
+    }
+}
+
+@mixin link-typo-menu($colorContrast: false) {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+    //letter-spacing: 0;
+    @if $colorContrast {
+        opacity: 0.87;
+    }
+}
+
+@mixin link-typo-button($colorContrast: false) {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 14px;
+    //letter-spacing: 0;
+    @if $colorContrast {
+        opacity: 0.87;
+    }
+}
