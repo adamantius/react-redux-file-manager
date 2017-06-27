@@ -14,7 +14,8 @@ import {INITIAL_DIRS} from "./config";
 
 // Load SCSS
 import '../styles/app.scss';
-import css from 'react-select/dist/react-select.css';
+import 'react-select/dist/react-select.css';
+import 'font-awesome/css/font-awesome.css';
 
 import { changeBaseRoot, changePanelRoot } from './actions/app';
 import { requestFilesList, recieveFilesList } from './actions/files';

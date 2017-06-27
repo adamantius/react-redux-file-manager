@@ -108,14 +108,20 @@ if (isProduction) {
         comments: false,
       },
     }),
-    new ExtractTextPlugin('style.css')
+    new ExtractTextPlugin({
+      filename: 'css/style.css',
+      allChunks: true
+    })
   );
 
   // Production rules
   rules.push(
     {
       test: /\.css$/,
-      use: [ 'style-loader', 'css-loader' ]
+      loader: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: 'css-loader'
+      })
     },
     {
       test: /\.scss$/,
@@ -143,11 +149,6 @@ if (isProduction) {
       exclude: /node_modules/,
       use: [
         'style-loader',
-        // Using source maps breaks urls in the CSS loader
-        // https://github.com/webpack/css-loader/issues/232
-        // This comment solves it, but breaks testing from a local network
-        // https://github.com/webpack/css-loader/issues/232#issuecomment-240449998
-        // 'css-loader?sourceMap',
         'css-loader',
         'postcss-loader',
         'sass-loader?sourceMap',
