@@ -13,13 +13,14 @@ const isProduction = nodeEnv === 'production';
 const jsSourcePath = path.join(__dirname, './src');
 const buildPath = path.join(__dirname, './build');
 const imgPath = path.join(__dirname, './assets/img');
-const iconPath = path.join(__dirname, './assets/icons');
 const stylesPath = path.join(__dirname, './styles');
+
+
 
 
 // Common plugins
 const plugins = [
-  new SpritePlugin(),
+  
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
     filename: 'vendor.js',
@@ -28,17 +29,21 @@ const plugins = [
       return context && context.indexOf('node_modules') >= 0;
     },
   }),
+  
   new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: JSON.stringify(nodeEnv),
     },
   }),
+  
   new webpack.NamedModulesPlugin(),
+  
   new HtmlWebpackPlugin({
     template: path.join(jsSourcePath, 'index.html'),
     path: buildPath,
     filename: 'index.html',
   }),
+  
   new webpack.LoaderOptionsPlugin({
     options: {
       postcss: [
@@ -52,6 +57,7 @@ const plugins = [
       context: stylesPath,
     },
   }),
+  
 ];
 
 // Common rules
@@ -63,20 +69,7 @@ const rules = [
       'babel-loader',
     ],
   },
-  // {
-  //   test: /\.svg$/,
-  //   use: [
-  //     {
-  //       loader: 'svg-sprite-loader',
-  //       options: {
-  //         extract: true,
-  //         spriteFilename: 'icons-sprite.svg',
-  //       },
-  //     },
-  //     'svgo-loader',
-  //   ],
-  //   include: iconPath,
-  // },
+  
   {
     test: /\.(png|gif|jpg|svg)$/,
     include: imgPath,
@@ -84,8 +77,9 @@ const rules = [
   },
   {
       test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-      loader: 'file-loader?name=fonts/[name].[ext]'
+      use: 'file-loader?name=fonts/[name].[ext]&publicPath=./',
   }
+  
 ];
 
 if (isProduction) {
@@ -108,29 +102,20 @@ if (isProduction) {
         comments: false,
       },
     }),
-    new ExtractTextPlugin({
-      filename: 'css/style.css',
-      allChunks: true
-    })
+    new ExtractTextPlugin('styles.css')
   );
 
   // Production rules
   rules.push(
     {
-      test: /\.css$/,
-      loader: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: 'css-loader'
-      })
-    },
-    {
-      test: /\.scss$/,
+      test: /\.scss$/i,
       loader: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: 'css-loader!postcss-loader!sass-loader',
       }),
     }
   );
+  
 } else {
   // Development plugins
   plugins.push(
@@ -140,10 +125,6 @@ if (isProduction) {
 
   // Development rules
   rules.push(
-    {
-      test: /\.css$/,
-      use: [ 'style-loader', 'css-loader' ]
-    },
     {
       test: /\.scss$/,
       exclude: /node_modules/,

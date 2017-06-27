@@ -1,4 +1,8 @@
 @import "base/normalize";
 @import "base/breakpoints";
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
+@import "~react-select/scss/default";
 @import "link/all";
 @import "base/app";
+

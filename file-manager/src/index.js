@@ -14,11 +14,10 @@ import {INITIAL_DIRS} from "./config";
 
 // Load SCSS
 import '../styles/app.scss';
-import 'react-select/dist/react-select.css';
-import 'font-awesome/css/font-awesome.css';
+
 
 import { changeBaseRoot, changePanelRoot } from './actions/app';
-import { requestFilesList, recieveFilesList } from './actions/files';
+import { recieveFilesList } from './actions/files';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -55,12 +54,8 @@ if (isProduction) {
   );
 }
 
-
-
 store.dispatch(recieveFilesList(INITIAL_DIRS[0].value, 0));
 // Stop listening to state updates
-//unsubscribe()
-
 
 // Render it to DOM
 ReactDOM.render(
@@ -69,4 +64,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-//registerServiceWorker();
